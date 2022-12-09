@@ -25,7 +25,7 @@ state={
   images: [],
   page: 1, 
   currentImage: null,
-  totalPages:0,
+  totalHits:0,
 }
 
 async componentDidUpdate(prevProps, prevState){
@@ -38,7 +38,7 @@ async componentDidUpdate(prevProps, prevState){
     PixabayAPI.page = this.state.page;
     try{
       const {data} = await PixabayAPI.fetchImages();
-      this.setState((prevState)=>({images:[...prevState.images, ...data.hits ], status:STATUSES.SUCCESS, totalPages:data.totalHits,}))
+      this.setState((prevState)=>({images:[...prevState.images, ...data.hits ], status:STATUSES.SUCCESS, totalHits:data.totalHits,}))
       if(!data.hits.length){
         Notify.failure(`Ooops, there are no images when searching for ${nextName}`)
         this.setState({ status:STATUSES.ERROR})}
@@ -70,8 +70,8 @@ loadMore = () => {
   const { status,
     images,
     currentImage,
-    totalPages, page} = this.state;
-    const pages=Math.ceil(totalPages / PixabayAPI.per_page)
+    totalHits, page} = this.state;
+    const pages=Math.ceil(totalHits / PixabayAPI.per_page)
 return(
 <>
 <Searchbar onSubmit={this.onSubmit}/>  
@@ -80,7 +80,7 @@ return(
         <ImageGallery>
         <ImageGalleryItem images={images} onClickOnImage={this.onClickOnImage}/>
         </ImageGallery>
-        {page<=pages&&<Button text="Load more" handleClick={this.loadMore} />}
+        {page<pages&&<Button text="Load more" handleClick={this.loadMore} />}
           {currentImage && (
                   <Modal currentImage={currentImage} closeModal={this.closeModal} />
                 )}</Section>)}
