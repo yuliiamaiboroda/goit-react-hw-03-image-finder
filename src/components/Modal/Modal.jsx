@@ -40,9 +40,9 @@ export default class Modal extends Component {
 }
 
 Modal.propTypes = {
-  currentImage: PropTypes.arrayOf(PropTypes.shape({
+  currentImage: PropTypes.shape({
     largeImageURL: PropTypes.string.isRequired,
     tags:PropTypes.string.isRequired}
-  ).isRequired).isRequired,
+  ).isRequired,
   closeModal: PropTypes.func.isRequired
 }
