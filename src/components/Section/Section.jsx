@@ -14,3 +14,7 @@ class Section extends Component {
     }
 }
 export default Section;
+
+Section.propTypes={
+children: PropTypes.node.isRequired
+}
