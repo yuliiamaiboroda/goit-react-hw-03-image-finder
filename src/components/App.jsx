@@ -45,6 +45,7 @@ async componentDidUpdate(prevProps, prevState){
     }
     catch(err) {
       console.log(err);
+      this.setState({ status:STATUSES.ERROR})
     }
   }}
 
