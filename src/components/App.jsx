@@ -31,7 +31,7 @@ state={
 async componentDidUpdate(prevProps, prevState){
   const prevName = prevState.imageName;
   const nextName = this.state.imageName;
-  
+ 
   if(prevName!==nextName|| prevState.page !== this.state.page){
     this.setState({status:STATUSES.PENDING})
     PixabayAPI.q = this.state.imageName;
@@ -52,7 +52,9 @@ async componentDidUpdate(prevProps, prevState){
 
   
 onSubmit = (imageName) =>{
-  this.setState({imageName, page:1, images:[]})
+  if(imageName !==  this.state.imageName){
+    this.setState({imageName, page:1,  images: [],})
+  } 
 }
 
 onClickOnImage = currentImage=>{
